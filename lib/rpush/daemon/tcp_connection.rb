@@ -127,6 +127,9 @@ module Rpush
         ssl_context = OpenSSL::SSL::SSLContext.new
         ssl_context.key = OpenSSL::PKey::RSA.new(@certificate, @password)
         ssl_context.cert = OpenSSL::X509::Certificate.new(@certificate)
+        ssl_context.ssl_version = :TLSv1_2
+        ssl_content.options = OpenSSL::SSL::OP_NO_SSLv2 | OpenSSL::SSL::OP_NO_SSLv3 | OpenSSL::SSL::OP_NO_TLSv1 | OpenSSL::SSL::OP_NO_TLSv1_1
+        ssl_content.ciphers = 'HIGH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!SRP'
         ssl_context
       end
 
